@@ -53,3 +53,30 @@ params:{
 	]
 }
 return color:number //赢方棋子颜色
+//前段部分
+3下棋
+req:
+url:'/index/pushChess'
+onputChess:{
+	x:num,
+	y:num,
+	color:num
+}
+res:
+onputChess:{
+	x:num,
+	y:num,
+	color:num
+}
+4玩家登陆名
+
+req:
+url:'/index/play'
+play:{
+	name:string
+}
+
+res:
+play:{
+	name:string
+}
