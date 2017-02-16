@@ -60,7 +60,6 @@ url:'/index/pushChess'
 onputChess:{
 	x:num,
 	y:num,
-	color:num
 }
 res:
 onputChess:{
@@ -71,12 +70,15 @@ onputChess:{
 4玩家登陆名
 
 req:
-url:'/index/play'
+url:'/login/play'
 play:{
 	name:string
+        color:num
 }
 
 res:
 play:{
 	name:string
+        color:num
 }
+// color:0为黑色，1为白色
