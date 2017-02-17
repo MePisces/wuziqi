@@ -1,4 +1,4 @@
-GameLogic-->socket.io
+﻿GameLogic-->socket.io
 
 1 定义棋盘大小
 
@@ -85,7 +85,7 @@ play:{
 req:
 url:'/index/startgame'
 data:{
-	state:"startGame",
+	type:"startGame",
 	row: number,
 	col: number
 }
