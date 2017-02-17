@@ -46,7 +46,7 @@
 var socketIO = require("socket.io");
 var game = require("./game");
 var config=require("./config");
-var start=game.game;
+
 
 module.exports = function (httpServer) {
     // 让socket.io监听web服务器，并返回socket.io服务器
@@ -54,12 +54,12 @@ module.exports = function (httpServer) {
     //建立一个参与玩家的列表
     var playerlist=[];
 
+    var colorMap ={};
     // socket服务器会监听所有客户端的连接请求
     // 当有客户端连接请求到达时，会触发一个"connect"事件
     // 每一个客户端请求，服务器端都会创建一个新的socket对象，负责和对方通信
     socketServer.on("connect", function (socket) {
-        console.log("有新的客户端连接:" + socket.id);
-        //建立储存该玩家步数的空数组
+        // 服务器socket监听客户端发过来的消息
         socket.on("message", function (data) {
             // 提取收到的消息的类型
             var type=data.type;
@@ -72,11 +72,10 @@ module.exports = function (httpServer) {
 
                 }
                 playerlist.push(player);
-                var color={
-                    type:"enter"
-                    color:whatColor()
-                }
+               
                 io.sockets.send(color);
+                colorMap[socket.id] = color;
+
                 if(playerlist.length==2){
                     var data={
                         type:"startGame",
@@ -94,18 +93,22 @@ module.exports = function (httpServer) {
                 case "play":
                 var x=data.x;
                 var y=data.y;
-                var color=data.color;
-                game.putChess(x,y);
-                if(game.winColor){
-                    var winner={
-                        type:"end",
-                        color:game.winColor
+                
+                var soColor = colorMap[socket.id];
+                if(game.isCurrColor(soColor)){
+                    game.putChess(x,y);
+                    if(game.winColor){
+                        var winner={
+                            type:"end",
+                            color:game.winColor
+                        }
+                        io.sockets.send(winner)
+                        return;
                     }
-                    io.sockets.send(winner)
-                    return;
+                    io.sockets.send(data);   
                 }
-                io.sockets.send(data)
-
+                
+                break;
             } 
         });
 
@@ -130,12 +133,24 @@ module.exports = function (httpServer) {
             return 0;
         }
     }
+    function indexof(val){
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+            }
+        return -1;
+    }
+    function remove(val){
+        var index = this.indexOf(val);
+            if (index > -1) {
+            this.splice(index, 1);
+        }
+    }
     // 离客户端断开socket连接时
     function customerLeave(socket) {
         // 构造要广播给客户端的消息的数据结构
         var data = {
             type: "leave", // 用户离开
-            cid: socket.cid
+            name: socket.name
         };
         // 广播出去
         socket.broadcast.send(data);

@@ -59,7 +59,7 @@ onputChess:{
 	type:"play"，
 	x:num,
 	y:num,
-	color:
+	color:num
 }
 res:
 onputChess:{
@@ -73,14 +73,13 @@ req:
 url:'/login/play'
 play:{
 	type:"enter"，
-	name:string，
-    color:num
+	name:string
 }
 
 res:
 play:{
-	name:string
-    color:num
+	type:"enter",
+        color:num
 }
 5 等待其他玩家
 url:'index/startgame'
@@ -100,8 +99,14 @@ data:{
 req:
 url:'/index/winner'
 winner:{
-	type:"end
+	type:"end",
 	color:num(0 || 1)
+}
+7 玩家离开
+res:
+data:{
+	type:"leave",
+	name:leavename
 }
 
 // color:0为黑色，1为白色
