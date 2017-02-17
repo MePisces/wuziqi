@@ -25,6 +25,13 @@ handler.putChess = function(x,y){
 	};
 };
 
+handler.isCurrColor = function(color){
+	if(color == this.currColor){
+		return true;
+	};
+	return false;
+};
+
 // private methods
 handler._check = function(){
 	if(_wuzi(this._map[this.currColor])){
