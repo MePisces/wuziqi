@@ -13,7 +13,7 @@
         <p>play1</p>
         <div class="black"></div>
     </div>
-    <!--棋盘-->
+    棋盘
    <ul></ul>
     <!--玩家2-->
     <div class="play2">
@@ -21,7 +21,12 @@
         <div class="white"></div>
     </div>
 </div>
+<div id="game"></div>
 </body>
+<script type="text/javascript">
+    var ga = new Game(10,10,$('#game'));
+    ga.renderBoard();
+</script>
 </html>
 
   
