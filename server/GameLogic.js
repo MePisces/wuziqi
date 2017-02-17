@@ -39,6 +39,7 @@ var row=10;
 var col=10;
 
 module.exports={
+    //定义棋盘大小
     boxSize:function(){
         return {
             row:row,
