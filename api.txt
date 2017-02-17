@@ -1,31 +1,29 @@
-GameLogic-->socket.io
+ï»¿GameLogic-->socket.io
 
-1 ¶¨ÒåÆåÅÌ´óĞ¡
+1 å®šä¹‰æ£‹ç›˜å¤§å°
 
-url:'/GameLogic/boxSize'
 return {	
-            //ÆåÅÌĞĞÊı
+            //æ£‹ç›˜è¡Œæ•°
 	    row:number,
-	    //ÆåÅÌÁĞÊı
+	    //æ£‹ç›˜åˆ—æ•°
             col:number
 };
 
 
-2 ÅĞ¶ÏÊäÓ®
+2 åˆ¤æ–­è¾“èµ¢
 
-url:'/GameLogic/checkWin'
 params:{
 	
-	data£º[
+	dataï¼š[
 		{
-	           //Æå×ÓÑÕÉ«
+	           //æ£‹å­é¢œè‰²
 		  color:number
-		//Æå×ÓµÄ×ø±êÊı×é
+		//æ£‹å­çš„åæ ‡æ•°ç»„
 		posArr:[
 			{
-				//XÖá×ø±ê
-				x:number£¬
-		       		//YÖá×ø±ê
+				//Xè½´åæ ‡
+				x:numberï¼Œ
+		       		//Yè½´åæ ‡
 				y:number
 .
 			},
@@ -35,14 +33,14 @@ params:{
 		]				
 	       },
 	      {
-	           //Æå×ÓÑÕÉ«
+	           //æ£‹å­é¢œè‰²
 		  color:number
-		//Æå×ÓµÄ×ø±êÊı×é
+		//æ£‹å­çš„åæ ‡æ•°ç»„
 		posArr:[
 			{
-				//XÖá×ø±ê
-				x:number£¬
-		       		//YÖá×ø±ê
+				//Xè½´åæ ‡
+				x:numberï¼Œ
+		       		//Yè½´åæ ‡
 				y:number
 .
 			},	.
@@ -52,15 +50,15 @@ params:{
 	       }
 	]
 }
-return color:number //Ó®·½Æå×ÓÑÕÉ«
-//Ç°¶Î²¿·Ö
-3ÏÂÆå
+return color:number //èµ¢æ–¹æ£‹å­é¢œè‰²
+//å‰æ®µéƒ¨åˆ†
+3ä¸‹æ£‹
 req:
 url:'/index/pushChess'
 onputChess:{
+	type:"æ¸¸æˆ"ï¼Œ
 	x:num,
 	y:num,
-	color:num
 }
 res:
 onputChess:{
@@ -68,15 +66,34 @@ onputChess:{
 	y:num,
 	color:num
 }
-4Íæ¼ÒµÇÂ½Ãû
+4ç©å®¶ç™»é™†å
 
 req:
-url:'/index/play'
+url:'/login/play'
 play:{
-	name:string
+	type:"è¿›å…¥"ï¼Œ
+	name:stringï¼Œ
+    color:num
 }
 
 res:
 play:{
 	name:string
+    color:num
 }
+5 ä¸¤åç©å®¶ç™»å½•ï¼Œæ¸¸æˆå¼€å§‹
+req:
+url:'/index/startgame'
+data:{
+	type:"startGame",
+	row: number,
+	col: number
+}
+6 æ¨é€èƒœåˆ©&å¤±è´¥æ¶ˆæ¯
+req:
+url:'/index/winner'
+winner:{
+	color:num(0 || 1)
+}
+
+// color:0ä¸ºé»‘è‰²ï¼Œ1ä¸ºç™½è‰²
