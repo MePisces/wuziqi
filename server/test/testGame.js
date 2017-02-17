@@ -41,7 +41,7 @@ testList.push(function(){
 
 	game.putChess(4,0);
 
-	return game.winColor;
+	return game.winColor == 0;
 });
 
 // 3 纵向
@@ -72,7 +72,7 @@ testList.push(function(){
 	game.putChess(1,2);
 
 
-	return game.winColor;
+	return game.winColor == 1;
 });
 
 // 3 左上到右下
@@ -82,7 +82,7 @@ testList.push(function(){
 	game.putChess(1,0);
 
 	game.putChess(0,1);
-	game.putChess(1,1);
+	game.putChess(1,9);
 
 	game.putChess(1,1);
 	game.putChess(1,4);
@@ -96,13 +96,10 @@ testList.push(function(){
 	game.putChess(4,4);
 	game.putChess(0,2);
 
-	game.putChess(1,2);
-	game.putChess(1,3);
-
 	game.putChess(5,5);
 
 
-	return game.winColor;
+	return game.winColor == 0;
 });
 
 // 3 右上到左下
@@ -133,7 +130,7 @@ testList.push(function(){
 	game.putChess(3,8);
 
 
-	return game.winColor;
+	return game.winColor == 1;
 });
 
 for (var i = 0; i < testList.length; i++) {
