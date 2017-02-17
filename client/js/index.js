@@ -2,7 +2,7 @@
  * Created by hxsd on 2017/2/17.
  */
 $(function(){
-//            var clientSocket = io();
+    var clientSocket = io();
     var arrName=[]
 
     var height=$(window).height()/2+"px";  //获取游览器高度的一半
@@ -30,7 +30,7 @@ $(function(){
 //           req:
 //            url:'/login/play'
 //            play:{
-//                type:"进入"，
+//                type:"enter"，
 //	            name:string，
 //                color:num
 //            }
@@ -49,16 +49,16 @@ $(function(){
         arrName.push(name);
         //生成提交信息
         var play={
-            type:"进入",
+            type:"enter",
             name:name
         };
         if(validLogin(play)){
             $("#name").val(null);
-//            clientSocket.send(play);
-//            $(this).parent().attr({
-//                href:"game.html",
-//                target:"_blank"
-//            });
+           clientSocket.send(play);
+           $(this).parent().attr({
+               href:"game.html",
+               target:"_blank"
+           });
         }
         console.log(play)
     });
