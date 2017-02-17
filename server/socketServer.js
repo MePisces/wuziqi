@@ -47,7 +47,6 @@ var socketIO = require("socket.io");
 var game = require("./game");
 var config=require("./config");
 var start=game.game;
-// var putchess=game.putChess();
 
 module.exports = function (httpServer) {
     // 让socket.io监听web服务器，并返回socket.io服务器
@@ -70,9 +69,14 @@ module.exports = function (httpServer) {
                 var player={
                     name:username,
                     color:whatColor()
+
                 }
                 playerlist.push(player);
-                console.log(playerlist)
+                var color={
+                    type:"enter"
+                    color:whatColor()
+                }
+                io.sockets.send(color);
                 if(playerlist.length==2){
                     var data={
                         type:"startGame",
@@ -125,7 +129,7 @@ module.exports = function (httpServer) {
         }else{
             return 0;
         }
-   }
+    }
     // 离客户端断开socket连接时
     function customerLeave(socket) {
         // 构造要广播给客户端的消息的数据结构

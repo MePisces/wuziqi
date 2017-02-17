@@ -54,11 +54,12 @@ return color:number //赢方棋子颜色
 //前段部分
 3下棋
 req:
-url:'/index/pushChess'
+url:'/index/putChess'
 onputChess:{
-	type:"游戏"，
+	type:"play"，
 	x:num,
 	y:num,
+	color:
 }
 res:
 onputChess:{
@@ -71,7 +72,7 @@ onputChess:{
 req:
 url:'/login/play'
 play:{
-	type:"进入"，
+	type:"enter"，
 	name:string，
     color:num
 }
@@ -81,6 +82,12 @@ play:{
 	name:string
     color:num
 }
+5 等待其他玩家
+url:'index/startgame'
+data:{
+	type:"wait"
+}
+res
 5 两名玩家登录，游戏开始
 req:
 url:'/index/startgame'
@@ -93,6 +100,7 @@ data:{
 req:
 url:'/index/winner'
 winner:{
+	type:"end
 	color:num(0 || 1)
 }
 
