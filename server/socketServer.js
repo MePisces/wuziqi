@@ -133,24 +133,13 @@ module.exports = function (httpServer) {
             return 0;
         }
     }
-    function indexof(val){
-        for (var i = 0; i < this.length; i++) {
-            if (this[i] == val) return i;
-            }
-        return -1;
-    }
-    function remove(val){
-        var index = this.indexOf(val);
-            if (index > -1) {
-            this.splice(index, 1);
-        }
-    }
+
     // 离客户端断开socket连接时
     function customerLeave(socket) {
         // 构造要广播给客户端的消息的数据结构
         var data = {
             type: "leave", // 用户离开
-            name: socket.name
+            name: socket.id
         };
         // 广播出去
         socket.broadcast.send(data);
