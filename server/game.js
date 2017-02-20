@@ -32,6 +32,16 @@ handler.isCurrColor = function(color){
 	return false;
 };
 
+handler.isExist = function(x,y){
+	var arr=this._map.0.concat(this._map.1);
+	for(var i=0;i<arr.length;i++){
+		if(arr[i].x+""+arr[i].y==x+""+y){
+			return true;
+		};
+	};
+	return false;
+};
+
 // private methods
 handler._check = function(){
 	if(_wuzi(this._map[this.currColor])){
