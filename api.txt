@@ -54,7 +54,7 @@ return color:number //赢方棋子颜色
 //前段部分
 3下棋
 req:
-url:'/index/putChess'
+
 onputChess:{
 	type:"play"，
 	x:num,
@@ -63,6 +63,7 @@ onputChess:{
 }
 res:
 onputChess:{
+	type:"play"
 	x:num,
 	y:num,
 	color:num
@@ -70,7 +71,7 @@ onputChess:{
 4玩家登陆名
 
 req:
-url:'/login/play'
+
 play:{
 	type:"enter"，
 	name:string
