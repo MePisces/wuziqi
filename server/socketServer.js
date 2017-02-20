@@ -45,7 +45,7 @@
 // 引入socket.io模块
 var socketIO = require("socket.io");
 var game = require("./game");
-var config=require("./config");
+var config=require("./gameConfig");
 
 
 module.exports = function (httpServer) {
@@ -83,19 +83,25 @@ module.exports = function (httpServer) {
                         col:start.col
                     }
                     io.sockets.send(data);
-                }else{
-                    var data={
-                        type:"wait"
-                    }
-                    io.sockets.send(data);
-                };
+                }
                 break;
                 case "play":
                 var x=data.x;
                 var y=data.y;
-                
-                var soColor = colorMap[socket.id];
                 if(game.isExist(x,y)==false){
+                    var data={
+                        type:"play",
+                        x:x,
+                        y:y
+                    }
+                    io.sockets.send(data);
+                }else{
+                    var error={
+                        type:"error"
+                    }
+                    io.sockets.send(error);   
+                }
+                var soColor = colorMap[socket.id];
                     if(game.isCurrColor(soColor)){
                         game.putChess(x,y);
                         if(game.winColor){
@@ -106,15 +112,7 @@ module.exports = function (httpServer) {
                             io.sockets.send(winner)
                             return;
                         }
-                    io.sockets.send(data);   
                     }  
-                }else{
-                    var error={
-                        type:"error"
-                    }
-                    io.sockets.send(error);   
-
-                }
                 break;
             } 
         });
@@ -139,7 +137,7 @@ module.exports = function (httpServer) {
         }else{
             return 0;
         }
-    }
+    };
 
     // 离客户端断开socket连接时
     function customerLeave(socket) {
