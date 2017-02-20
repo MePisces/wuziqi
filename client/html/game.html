@@ -2,30 +2,19 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="../css/game.css">
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="../js/game.js"></script>
-	<title></title>
+    	<title></title>
 </head>
 <body>
 <div class="chess">
-    <!--玩家1-->
-    <div class="play1">
-        <p>play1</p>
-        <div class="black"></div>
-    </div>
-    棋盘
-   <ul></ul>
-    <!--玩家2-->
-    <div class="play2">
-        <p>play2</p>
-        <div class="white"></div>
-    </div>
+    <div id="game"></div>
 </div>
-<div id="game"></div>
+
 </body>
 <script type="text/javascript">
     var ga = new Game(10,10,$('#game'));
-    ga.renderBoard();
 </script>
 </html>
 
