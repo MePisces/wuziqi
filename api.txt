@@ -102,7 +102,11 @@ winner:{
 	type:"end",
 	color:num(0 || 1)
 }
-7 玩家离开
+7 落子位置是否有棋子
+error:{
+	type:"error"
+}
+8 玩家离开
 res:
 data:{
 	type:"leave",

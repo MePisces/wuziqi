@@ -95,19 +95,26 @@ module.exports = function (httpServer) {
                 var y=data.y;
                 
                 var soColor = colorMap[socket.id];
-                if(game.isCurrColor(soColor)){
-                    game.putChess(x,y);
-                    if(game.winColor){
-                        var winner={
-                            type:"end",
-                            color:game.winColor
+                if(game.isExist(x,y)==false){
+                    if(game.isCurrColor(soColor)){
+                        game.putChess(x,y);
+                        if(game.winColor){
+                            var winner={
+                                type:"end",
+                                color:game.winColor
+                            }
+                            io.sockets.send(winner)
+                            return;
                         }
-                        io.sockets.send(winner)
-                        return;
-                    }
                     io.sockets.send(data);   
+                    }  
+                }else{
+                    var error={
+                        type:"error"
+                    }
+                    io.sockets.send(error);   
+
                 }
-                
                 break;
             } 
         });
