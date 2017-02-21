@@ -2,7 +2,7 @@
  * Created by hxsd on 2017/2/17.
  */
 $(function(){
-    var clientSocket = io(/*'ws://localhost:3000'*/);
+    var clientSocket = io('ws://localhost:3000');
     var arrName=[]
 
     var height=$(window).height()/2+"px";  //获取游览器高度的一半
