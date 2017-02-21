@@ -33,7 +33,7 @@ handler.isCurrColor = function(color){
 };
 
 handler.isExist = function(x,y){
-	var arr=this._map.0.concat(this._map.1);
+	var arr=this._map[0].concat(this._map[1]);
 	for(var i=0;i<arr.length;i++){
 		if(arr[i].x+""+arr[i].y==x+""+y){
 			return true;
