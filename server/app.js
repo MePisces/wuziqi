@@ -4,8 +4,11 @@ var config=require("./gameConfig");
 var express = require("express");
 var http = require("http");
 
+var port =3000;
+
 var App = function(){
 	this.init();
+	this.bind();
 };
 
 
@@ -16,9 +19,8 @@ handler.init = function(){
 	var httpServer = http.createServer(/*app*/);
     var socketServer = this.socketServer = socketIO.listen(httpServer);
 
-
-	httpServer.listen(3000,function(){
-	    console.log("服务器正运行在3000端口...");
+	httpServer.listen(port,function(){
+	    console.log("服务器正运行在"+port+"端口...");
 	});
 
 };
