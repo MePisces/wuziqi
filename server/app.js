@@ -53,7 +53,7 @@ handler.bind = function() {
 		console.log(this.userList.length);
 		if (this.userList.length == CONFIG.USER_COUNT) {
 			this.startGame();
-			var ga = this.ga;
+			var ga = this.game;
 			io.send({
 				type: 'game.start',
 				userList: this.userList,
@@ -67,10 +67,15 @@ handler.bind = function() {
 				'color':ga.currColor
 			});
 			
-			setTimeout(()=>{
-				console.log(this.userList);
+			// setInterval(()=>{
+			// 	io.send({
+			// 		type: 'game.start',
+			// 		userList: this.userList,
+			// 		cols: ga.cols,
+			// 		rows: ga.rows
+			// 	});
 
-			},2000)
+			// },2000)
 		}
 	};
 
@@ -115,16 +120,24 @@ handler.bind = function() {
 		});
 
 		so.on('disconnect', function() {
+			console.log('before',this.userList);
 			console.log('_removeUserBySid:',so.id);
 			let us = this._findUserBySid(so.id);
-			this._removeUserBySid(so.id);
 
-			io.send({
-				'type':'disconnect',
-				'username':us.username
-			});
+			if(us){
+				this._removeUserBySid(so.id);
+				console.log('after',this.userList);
+				
+
+				io.send({
+					'type':'user.leave',
+					'username':us.username
+				});
+			}
 		}.bind(self));
 	});
+
+
 };
 
 
@@ -132,17 +145,19 @@ handler.startGame = function() {
 	var rows = CONFIG.rows,
 		cols = CONFIG.cols;
 
-	var ga = this.ga = new Game(rows, cols);
+	var ga = this.game = new Game(rows, cols);
+	// console.log('game:',ga);
 };
 
 // private methods
 // todo
 handler._getColor = function() {
-	return this.userList.length == 0 ? 1 : 0;
+	return this.userList.length == 0 ? 0:1;
 };
 
 handler._addUser = function(sid, username) {
 	color = this._getColor();
+	console.log({color});
 	this.userList.push({
 		sid,
 		username,
@@ -159,9 +174,7 @@ handler._findUserBySid = function(sid){
 };
 
 handler._removeUserBySid = function(sid){
-	console.log(this.userList);
 	this.userList = _.filter(this.userList,us=>us.sid!=sid);
-	console.log(this.userList);
 };
 
 var app = new App();

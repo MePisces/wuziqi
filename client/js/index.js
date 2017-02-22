@@ -2,6 +2,7 @@
     var App = function(){
         this.game = null;
         this.so = null;
+        this.userList=null;
 
         this.init();
         this.bind();
@@ -31,17 +32,28 @@
         };
 
         dict['game.start'] = function(data){
-            console.log('game.start',data);
-            console.log('username:',this.username);
+            console.log(this.username);
+            console.log('game.start', data.userList.map(us => {
+                return JSON.stringify({
+                    username: us.username,
+                    color: us.color
+                });
+            }));
+            console.log('username:', this.username);
             var rows = data.rows,
                 cols = data.cols;
-            var userList = data.userList;
+            var userList = this.userList = data.userList;
 
             var ga = this.game = new Game(rows,cols,container);
+            ga.app = this;
 
-            ga.color = _.find(userList,function(us){
-                return us.username = this.username;
-            }.bind(this)).color;
+            let username = this.username;
+            let us = _.find(this.userList,function(us){
+                return us.username == username;
+            });
+
+            ga.color = us.color;
+            console.log('my game color:',ga.color);
 
         };
 
@@ -74,15 +86,17 @@
             alert(us.username+'胜利！');
         };
 
+        dict['user.leave'] = function (data) {
+            so.disconnect();
+            
+        };
+
 
         so.on('message',function(data){
             var type = data.type;
             dict[type].call(self,data);
         });
 
-        so.on('disconnect',function(data){
-            so.disconnect();
-        });
 
     };
 
@@ -103,7 +117,7 @@ $(function(){
     container = $('#game');
     var app = new App();
 
-    var username = app.username = 'tongjinle'+ Math.floor(Math.random()*100);
+    var username = app.username = 'tongjinle'+ Math.floor(Math.random()*10000);
     app.act('user.enter',{username:username});
 
 
