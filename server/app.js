@@ -35,11 +35,13 @@ handler.bind = function() {
 	var dict = {};
 	// enter
 	dict['user.enter'] = function(so, data) {
-		var username = data.username;
+		let username = data.username;
 		if (!this._findUser(username)) {
 			this._addUser(so.id,username);
 
-			var us = this._findUser(so.id);
+			let us = this._findUserBySid(so.id);
+			let color = us.color;
+			username = us.username;
 			io.send({
 				type: 'user.join',
 				username,
