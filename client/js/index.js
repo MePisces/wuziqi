@@ -48,6 +48,10 @@
             dict[type].call(self,data);
         });
 
+        so.on('disconnect',function(data){
+            so.disconnect();
+        });
+
     };
 
     handler.act = function(type,data){

@@ -79,8 +79,14 @@ handler.bind = function() {
 		});
 
 		so.on('disconnect', function() {
-			console.log('_removeUserBySid',so.id)
+			console.log('_removeUserBySid',so.id);
 			this._removeUserBySid(so.id);
+
+			let us = this._findUserBySid(so.id);
+			io.send({
+				'type':'disconnect',
+				'username':us.username
+			});
 		}.bind(self));
 	});
 };
