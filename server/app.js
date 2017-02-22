@@ -61,11 +61,47 @@ handler.bind = function() {
 				rows: ga.rows
 			});
 
+			console.log(this.userList);
+			io.send({
+				'type':'game.currColor',
+				'color':ga.currColor
+			});
+			
+			setTimeout(()=>{
+				console.log(this.userList);
+
+			},2000)
+		}
+	};
+
+	// putChess
+	dict['game.putChess'] = function(so,data){
+		let ga = this.game;
+		let {x,y,color} = data;
+		
+		// color check
+		if(ga.currColor !== color){
+			return;
+		}
+
+		ga.putChess(x,y);
+
+		io.send({type:'game.putChess',x,y,color});
+
+		// 是否有胜负
+		if(ga.winColor){
+			let data ={
+				type:'game.end',
+				color:ga.winColor
+			};
+			io.send(data);
+		}else{
 			io.send({
 				'type':'game.currColor',
 				'color':ga.currColor
 			});
 		}
+
 	};
 
 	io.on("connect", function(so) {
@@ -79,10 +115,10 @@ handler.bind = function() {
 		});
 
 		so.on('disconnect', function() {
-			console.log('_removeUserBySid',so.id);
+			console.log('_removeUserBySid:',so.id);
+			let us = this._findUserBySid(so.id);
 			this._removeUserBySid(so.id);
 
-			let us = this._findUserBySid(so.id);
 			io.send({
 				'type':'disconnect',
 				'username':us.username

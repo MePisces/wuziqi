@@ -1,5 +1,8 @@
 (function(){
     var App = function(){
+        this.game = null;
+        this.so = null;
+
         this.init();
         this.bind();
     };
@@ -23,25 +26,54 @@
             console.log(data);
         };
 
+        dict['user.disconnect'] = function(data){
+            console.log(data);
+        };
+
         dict['game.start'] = function(data){
-            console.log('game.start');
+            console.log('game.start',data);
+            console.log('username:',this.username);
             var rows = data.rows,
                 cols = data.cols;
             var userList = data.userList;
 
-            this.myColor = _.find(userList,function(us){
+            var ga = this.game = new Game(rows,cols,container);
+
+            ga.color = _.find(userList,function(us){
                 return us.username = this.username;
             }.bind(this)).color;
 
-            var ga = this.game = new Game(rows,cols,container);
         };
 
         dict['game.currColor'] = function(data){
+            var ga = this.game;
+
             var color = data.color;
+            ga.currColor = color;
+
             if(color == this.myColor){
                 console.log('it is my turn');
             }
         };
+
+        dict['game.putChess'] = function(data){
+            var x = data.x,
+                y = data.y,
+                color = data.color;
+
+            var ga = this.game;
+            ga.putChess(x,y,color);
+
+        };
+
+        dict['game.end'] = function(data){
+            var color = data.color;
+            var us = _.find(this.userList,function(us){
+                return us.color == color;
+            });
+            alert(us.username+'胜利！');
+        };
+
 
         so.on('message',function(data){
             var type = data.type;
