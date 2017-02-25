@@ -78,28 +78,26 @@ testList.push(function(){
 // 4 左上到右下
 testList.push(function(){
 	var game = new Game(10,10);
-	game.putChess(0,0);
-	game.putChess(1,0);
+	game.putChess(3,2);
+	game.putChess(4,2);
 
-	game.putChess(0,1);
-	game.putChess(1,9);
-
-	game.putChess(1,1);
-	game.putChess(1,4);
-
-	game.putChess(2,2);
-	game.putChess(0,2);
+	game.putChess(4,3);
+	game.putChess(5,4);
 
 	game.putChess(3,3);
-	game.putChess(0,2);
+	game.putChess(5,3);
 
-	game.putChess(4,4);
-	game.putChess(0,2);
+	game.putChess(5,2);
+	game.putChess(6,4);
 
-	game.putChess(5,5);
+	game.putChess(3,4);
+	game.putChess(7,5);
+
+	game.putChess(3,5);
+	game.putChess(8,6);
 
 
-	return game.winColor == 0;
+	return game.winColor == 1;
 });
 
 // 5 右上到左下
@@ -134,5 +132,5 @@ testList.push(function(){
 });
 
 for (var i = 0; i < testList.length; i++) {
-	console.log(testList[i]());
+	console.log((i+1)+":"+testList[i]());
 };

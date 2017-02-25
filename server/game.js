@@ -20,14 +20,11 @@ handler.putChess = function(x,y){
 	this._setChess(x,y);
 
 	var winColor = this._check();
-	console.log("winColor:"+winColor);
 	//if(!this.winColor){
 	if(winColor==undefined){
-		console.log("enterswitch");
 		this._switchColor();
 	}else{
 		this.winColor=winColor;
-		console.log("this.winColor:"+this.winColor);
 	};
 };
 
@@ -98,9 +95,9 @@ function _wuzi(posArr){
 	};
 
 	//左上到右下
-	for(var i=1;i<posArr.length;i++){
+	for(var i=0;i<posArr.length;i++){
 		num=1;
-		for(var j=i;j<posArr.length;j++){
+		for(var j=0;j<posArr.length;j++){
 			if(posArr[j].x==posArr[i].x+num && posArr[j].y==posArr[i].y+num){
 				num++;
 				if(num==5){
@@ -111,9 +108,9 @@ function _wuzi(posArr){
 	};
 
 	//右上到左下
-	for(var i=1;i<posArr.length;i++){
+	for(var i=0;i<posArr.length;i++){
 		num=1;
-		for(var j=i;j<posArr.length;j++){
+		for(var j=0;j<posArr.length;j++){
 			if(posArr[j].x==posArr[i].x-num && posArr[j].y==posArr[i].y+num){
 				num++;
 				if(num==5){
