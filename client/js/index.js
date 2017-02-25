@@ -32,13 +32,13 @@
         };
 
         dict['game.start'] = function(data){
-            console.log(this.username);
-            console.log('game.start', data.userList.map(us => {
-                return JSON.stringify({
-                    username: us.username,
-                    color: us.color
-                });
-            }));
+            // console.log(this.username);
+            // console.log('game.start', data.userList.map(us => {
+            //     return JSON.stringify({
+            //         username: us.username,
+            //         color: us.color
+            //     });
+            // }));
             console.log('username:', this.username);
             var rows = data.rows,
                 cols = data.cols;
@@ -47,8 +47,8 @@
             var ga = this.game = new Game(rows,cols,container);
             ga.app = this;
 
-            let username = this.username;
-            let us = _.find(this.userList,function(us){
+            var username = this.username;
+            var us = _.find(this.userList,function(us){
                 return us.username == username;
             });
 

@@ -111,7 +111,10 @@ handler.bind = function() {
 
 	io.on("connect", function(so) {
 		console.log(so.id);
-
+		console.log(io.emit+'');
+		console.log('$$$$$$$$$$$$$$$$$$$$$$')
+		console.log(io.sockets.emit+'');
+		console.log(io.emit === io.sockets.emit);
 		so.on('message', function(data) {
 			console.log(data, new Date().toString());
 
