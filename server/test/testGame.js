@@ -75,7 +75,7 @@ testList.push(function(){
 	return game.winColor == 1;
 });
 
-// 3 左上到右下
+// 4 左上到右下
 testList.push(function(){
 	var game = new Game(10,10);
 	game.putChess(0,0);
@@ -102,7 +102,7 @@ testList.push(function(){
 	return game.winColor == 0;
 });
 
-// 3 右上到左下
+// 5 右上到左下
 testList.push(function(){
 	var game = new Game(10,10);
 	game.putChess(0,0);

@@ -17,11 +17,17 @@ function Game(cols,rows){
 var handler = Game.prototype;
 
 handler.putChess = function(x,y){
-	this._setChess(x,y,this.currColor);
+	this._setChess(x,y);
 
-	this.winColor = this._check();
-	if(!this.winColor){
+	var winColor = this._check();
+	console.log("winColor:"+winColor);
+	//if(!this.winColor){
+	if(winColor==undefined){
+		console.log("enterswitch");
 		this._switchColor();
+	}else{
+		this.winColor=winColor;
+		console.log("this.winColor:"+this.winColor);
 	};
 };
 
@@ -80,6 +86,7 @@ function _wuzi(posArr){
 	for(var i=1;i<posArr.length;i++){
 		if(posArr[i].y==firstY && posArr[i].x==firstX+num){
 			num++;
+			console.log("num:"+num);
 			if(num==5){
 				return true;
 			};

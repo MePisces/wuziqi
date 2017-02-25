@@ -94,7 +94,7 @@ handler.bind = function() {
 		io.send({type:'game.putChess',x,y,color});
 
 		// 是否有胜负
-		if(ga.winColor){
+		if(ga.winColor!=undefined){
 			let data ={
 				type:'game.end',
 				color:ga.winColor

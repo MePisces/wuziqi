@@ -8,7 +8,7 @@ var express = require("express");
 var app = express();
 
 // 处理对静态资源的请求
-app.use(express.static(path.resolve(__dirname,"public")));  // 使用中间件
+app.use(express.static(path.resolve(__dirname,"../client")));  // 使用中间件
 
 var httpServer = http.createServer(app);
 
